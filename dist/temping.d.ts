@@ -1,15 +1,19 @@
-interface AffixOptions {
+interface IAffixOptions {
     dir?: string;
     prefix?: string;
     suffix?: string;
 }
-declare class Temping {
+interface ITemping {
+    clean(): void;
+    mkdir(prefix?: string): string;
+}
+declare class Temping implements ITemping {
     #private;
     clean(): void;
     mkdir(prefix?: string): string;
 }
 declare function _track(): Temping;
-declare function _generateName(rawAffixes?: string | AffixOptions): string;
+declare function _generateName(rawAffixes?: string | IAffixOptions): string;
 declare const _default: {
     track: typeof _track;
     generateName: typeof _generateName;
