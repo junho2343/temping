@@ -3,13 +3,18 @@ import * as path from "path";
 import * as fs from "fs";
 import * as rimraf from "rimraf";
 
-interface AffixOptions {
+interface IAffixOptions {
   dir?: string;
   prefix?: string;
   suffix?: string;
 }
 
-class Temping {
+interface ITemping {
+  clean(): void;
+  mkdir(prefix?: string): string;
+}
+
+class Temping implements ITemping {
   // 삭제 할 디렉토리
   #dirsToDelete: string[] = [];
 
@@ -41,7 +46,7 @@ function _track() {
 }
 
 // random name generate AND save path
-function _generateName(rawAffixes?: string | AffixOptions): string {
+function _generateName(rawAffixes?: string | IAffixOptions): string {
   const now = new Date();
 
   // set affixes
@@ -63,8 +68,8 @@ function _generateName(rawAffixes?: string | AffixOptions): string {
 
   // set affixes
 
-  function parseAffixes(rawAffixes?: string | AffixOptions) {
-    let affixes: AffixOptions = {};
+  function parseAffixes(rawAffixes?: string | IAffixOptions) {
+    let affixes: IAffixOptions = {};
 
     if (rawAffixes) {
       switch (typeof rawAffixes) {

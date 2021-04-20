@@ -22,7 +22,7 @@
     "typescript": "^4.2.4"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm version patch && npm publish",
     "example": "tsc && node ./example/index.js"
   },
   "author": {
