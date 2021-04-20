@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Temporary files & directory easy CREATE AND DELETE",
   "keywords": [
+    "temping",
     "temporary",
     "tmp",
     "temp",
@@ -24,6 +25,14 @@
     "build": "tsc",
     "example": "tsc && node ./example/index.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": {
+    "name": "Junho Moon",
+    "email": "junho234323@gmail.com",
+    "url": "https://junho2343.github.io"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/junho2343/temping.git"
+  }
 }
