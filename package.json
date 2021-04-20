@@ -22,8 +22,6 @@
     "typescript": "^4.2.4"
   },
   "scripts": {
-    "version": "tsc && npm version patch",
-    "publish": "npm publish",
     "build": "tsc",
     "example": "tsc && node ./example/index.js"
   },
