@@ -9,7 +9,7 @@ interface IAffixOptions {
   suffix?: string;
 }
 
-interface ITemping {
+export interface ITemping {
   clean(): void;
   mkdir(prefix?: string): string;
 }
