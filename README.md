@@ -4,6 +4,11 @@
 # Temping
 Temporary files & directorires easy CREATE and DELETE
 
+> The folder created by the temp module below during parallel processing was deleted by other requests, so I made it myself.   
+> Referring to temp module for source-based.    
+>  
+> https://www.npmjs.com/package/temp
+   
 ## :gear: Installation
 
 ### Npm
