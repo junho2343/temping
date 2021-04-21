@@ -2,8 +2,8 @@ declare class Temping implements ITemping {
     #private;
     clean(): void;
     mkdir(prefix?: string): string;
-    generateName(rawAffixes?: string | IAffixOptions): string;
-    static generateName(rawAffixes?: string | IAffixOptions): string;
+    path(rawAffixes?: string | IAffixOptions): string;
+    static path(rawAffixes?: string | IAffixOptions): string;
 }
 export interface IAffixOptions {
     dir?: string;
@@ -13,10 +13,10 @@ export interface IAffixOptions {
 export interface ITemping {
     clean(): void;
     mkdir(prefix?: string): string;
-    generateName(rawAffixes?: string | IAffixOptions): string;
+    path(rawAffixes?: string | IAffixOptions): string;
 }
 declare const _default: {
     track: () => Temping;
-    generateName: typeof Temping.generateName;
+    path: typeof Temping.path;
 };
 export default _default;

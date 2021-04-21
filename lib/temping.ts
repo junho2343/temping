@@ -3,11 +3,12 @@ import * as path from "path";
 import * as fs from "fs";
 import * as rimraf from "rimraf";
 
+// Temping Class
 class Temping implements ITemping {
-  // delete directory AND file
+  // delete target (private variable)
   #dirsToDelete: string[] = [];
 
-  // remove directory AND file
+  // delete target remove
   clean() {
     let target;
 
@@ -16,9 +17,9 @@ class Temping implements ITemping {
     }
   }
 
-  // create directory AND save directory path
+  // create directory AND save delete target
   mkdir(prefix?: string): string {
-    const dirPath = Temping.generateName(prefix);
+    const dirPath = Temping.path(prefix);
 
     fs.mkdirSync(dirPath);
 
@@ -29,12 +30,13 @@ class Temping implements ITemping {
     return dirPath;
   }
 
-  generateName(rawAffixes?: string | IAffixOptions): string {
-    return Temping.generateName(rawAffixes);
+  // generate random name
+  path(rawAffixes?: string | IAffixOptions): string {
+    return Temping.path(rawAffixes);
   }
 
-  // random name generate AND save path
-  static generateName(rawAffixes?: string | IAffixOptions): string {
+  // generate random name (static method)
+  static path(rawAffixes?: string | IAffixOptions): string {
     const now = new Date();
 
     // set affixes
@@ -85,10 +87,10 @@ export interface IAffixOptions {
 export interface ITemping {
   clean(): void;
   mkdir(prefix?: string): string;
-  generateName(rawAffixes?: string | IAffixOptions): string;
+  path(rawAffixes?: string | IAffixOptions): string;
 }
 
 export default {
   track: () => new Temping(),
-  generateName: Temping.generateName,
+  path: Temping.path,
 };

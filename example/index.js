@@ -4,18 +4,29 @@ const temping = require("../dist/temping").default;
 // dir create tracking
 const temp = temping.track();
 
-console.log(`generateName type1 : ${temping.generateName()}`);
-console.log(`generateName type2 : ${temping.generateName("junho_")}`);
-console.log(`generateName type3 : ${temping.generateName({ dir: __dirname })}`);
-console.log(
-  `generateName type4 : ${temping.generateName({
-    dir: __dirname,
-    suffix: ".json",
-  })}`
-);
+// /var/folders/cv/qcwshmd52_5bptvrrpclp6y40000gn/T/2021321-9700-4lgcj5cuik
+console.log(temp.mkdir());
 
-temp.mkdir("junnnho");
-temp.mkdir("junnnho");
+// /var/folders/cv/qcwshmd52_5bptvrrpclp6y40000gn/T/junho_2021321-9700-4lgcj5cuik
+console.log(temp.mkdir("junho_"));
 
-// create dir remove
+// /var/folders/cv/qcwshmd52_5bptvrrpclp6y40000gn/T/2021321-9700-4lgcj5cuik
+console.log(temping.path());
+
+// /var/folders/cv/qcwshmd52_5bptvrrpclp6y40000gn/T/junho_2021321-9700-4lgcj5cuik
+console.log(temping.path("junho_"));
+
+// /Users/junho/repo/temping/example/2021321-9700-2amxgp4dmm8
+console.log(temping.path({ dir: __dirname }));
+
+// /Users/junho/repo/temping/example/2021321-9700-2amxgp4dmm8.zip
+console.log(temping.path({ dir: __dirname, suffix: ".zip" }));
+
+// /Users/junho/repo/temping/example/junho_2021321-9700-2amxgp4dmm8.zip
+console.log(temping.path({ dir: __dirname, suffix: ".zip", prefix: "junho_" }));
+
+// You can use it like this.
+console.log(temp.path());
+
+// delete create directory
 temp.clean();

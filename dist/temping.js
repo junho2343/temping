@@ -30,31 +30,33 @@ const os = __importStar(require("os"));
 const path = __importStar(require("path"));
 const fs = __importStar(require("fs"));
 const rimraf = __importStar(require("rimraf"));
+// Temping Class
 class Temping {
     constructor() {
-        // delete directory AND file
+        // delete target (private variable)
         _dirsToDelete.set(this, []);
     }
-    // remove directory AND file
+    // delete target remove
     clean() {
         let target;
         while ((target = __classPrivateFieldGet(this, _dirsToDelete).shift()) !== undefined) {
             rimraf.sync(target);
         }
     }
-    // create directory AND save directory path
+    // create directory AND save delete target
     mkdir(prefix) {
-        const dirPath = Temping.generateName(prefix);
+        const dirPath = Temping.path(prefix);
         fs.mkdirSync(dirPath);
         fs.appendFileSync(`${dirPath}/test.txt`, "tttt");
         __classPrivateFieldGet(this, _dirsToDelete).push(dirPath);
         return dirPath;
     }
-    generateName(rawAffixes) {
-        return Temping.generateName(rawAffixes);
+    // generate random name
+    path(rawAffixes) {
+        return Temping.path(rawAffixes);
     }
-    // random name generate AND save path
-    static generateName(rawAffixes) {
+    // generate random name (static method)
+    static path(rawAffixes) {
         const now = new Date();
         // set affixes
         const affixes = parseAffixes(rawAffixes);
@@ -92,5 +94,5 @@ class Temping {
 _dirsToDelete = new WeakMap();
 exports.default = {
     track: () => new Temping(),
-    generateName: Temping.generateName,
+    path: Temping.path,
 };

@@ -1,7 +1,7 @@
 {
   "name": "temping",
   "version": "1.0.8",
-  "description": "Temporary files & directory easy CREATE AND DELETE",
+  "description": "Temporary files & directorires easy CREATE and DELETE",
   "keywords": [
     "temping",
     "temporary",
@@ -10,7 +10,10 @@
     "tempdir",
     "tempfile",
     "tmpdir",
-    "tmpfile"
+    "tmpfile",
+    "node",
+    "nodejs",
+    "node.js"
   ],
   "main": "./dist/temping",
   "dependencies": {
