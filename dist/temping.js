@@ -32,7 +32,7 @@ const fs = __importStar(require("fs"));
 const rimraf = __importStar(require("rimraf"));
 class Temping {
     constructor() {
-        // 삭제 할 디렉토리
+        // delete directory AND file
         _dirsToDelete.set(this, []);
     }
     // remove directory AND file
@@ -44,53 +44,53 @@ class Temping {
     }
     // create directory AND save directory path
     mkdir(prefix) {
-        const dirPath = _generateName(prefix);
+        const dirPath = Temping.generateName(prefix);
         fs.mkdirSync(dirPath);
         fs.appendFileSync(`${dirPath}/test.txt`, "tttt");
         __classPrivateFieldGet(this, _dirsToDelete).push(dirPath);
         return dirPath;
     }
-}
-_dirsToDelete = new WeakMap();
-function _track() {
-    return new Temping();
-}
-// random name generate AND save path
-function _generateName(rawAffixes) {
-    const now = new Date();
-    // set affixes
-    const affixes = parseAffixes(rawAffixes);
-    const nameArr = [
-        affixes.prefix,
-        String(now.getFullYear()),
-        String(now.getMonth()),
-        String(now.getDate()),
-        "-",
-        String(process.pid),
-        "-",
-        Math.random().toString(36).substr(2, 11),
-        affixes.suffix,
-    ].join("");
-    return path.join(affixes.dir || os.tmpdir(), nameArr);
-    // set affixes
-    function parseAffixes(rawAffixes) {
-        let affixes = {};
-        if (rawAffixes) {
-            switch (typeof rawAffixes) {
-                case "string":
-                    affixes.prefix = rawAffixes;
-                    break;
-                case "object":
-                    affixes = rawAffixes;
-                    break;
-                default:
-                    throw new Error("Unknown affix declaration: " + rawAffixes);
+    generateName(rawAffixes) {
+        return Temping.generateName(rawAffixes);
+    }
+    // random name generate AND save path
+    static generateName(rawAffixes) {
+        const now = new Date();
+        // set affixes
+        const affixes = parseAffixes(rawAffixes);
+        const nameArr = [
+            affixes.prefix,
+            String(now.getFullYear()),
+            String(now.getMonth()),
+            String(now.getDate()),
+            "-",
+            String(process.pid),
+            "-",
+            Math.random().toString(36).substr(2, 11),
+            affixes.suffix,
+        ].join("");
+        return path.join(affixes.dir || os.tmpdir(), nameArr);
+        // set affixes
+        function parseAffixes(rawAffixes) {
+            let affixes = {};
+            if (rawAffixes) {
+                switch (typeof rawAffixes) {
+                    case "string":
+                        affixes.prefix = rawAffixes;
+                        break;
+                    case "object":
+                        affixes = rawAffixes;
+                        break;
+                    default:
+                        throw new Error("Unknown affix declaration: " + rawAffixes);
+                }
             }
+            return affixes;
         }
-        return affixes;
     }
 }
+_dirsToDelete = new WeakMap();
 exports.default = {
-    track: _track,
-    generateName: _generateName,
+    track: () => new Temping(),
+    generateName: Temping.generateName,
 };
