@@ -85,6 +85,7 @@ export interface IAffixOptions {
 export interface ITemping {
   clean(): void;
   mkdir(prefix?: string): string;
+  generateName(rawAffixes?: string | IAffixOptions): string;
 }
 
 export default {
