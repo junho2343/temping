@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as rimraf from "rimraf";
 
 class Temping implements ITemping {
-  // 삭제 할 디렉토리
+  // delete directory AND file
   #dirsToDelete: string[] = [];
 
   // remove directory AND file
@@ -27,6 +27,10 @@ class Temping implements ITemping {
     this.#dirsToDelete.push(dirPath);
 
     return dirPath;
+  }
+
+  generateName(rawAffixes?: string | IAffixOptions): string {
+    return Temping.generateName(rawAffixes);
   }
 
   // random name generate AND save path
