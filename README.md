@@ -22,6 +22,7 @@ $ npm install temping
 ### Example
 
 ```
+// const temping = require('axios').default;
 import temping from 'temping'
 
 
