@@ -18,13 +18,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var _dirsToDelete;
+var _Temping_dirsToDelete;
 Object.defineProperty(exports, "__esModule", { value: true });
 const os = __importStar(require("os"));
 const path = __importStar(require("path"));
@@ -34,12 +33,12 @@ const rimraf = __importStar(require("rimraf"));
 class Temping {
     constructor() {
         // delete target (private variable)
-        _dirsToDelete.set(this, []);
+        _Temping_dirsToDelete.set(this, []);
     }
     // delete target remove
     clean() {
         let target;
-        while ((target = __classPrivateFieldGet(this, _dirsToDelete).shift()) !== undefined) {
+        while ((target = __classPrivateFieldGet(this, _Temping_dirsToDelete, "f").shift()) !== undefined) {
             rimraf.sync(target);
         }
     }
@@ -47,8 +46,7 @@ class Temping {
     mkdir(prefix) {
         const dirPath = Temping.path(prefix);
         fs.mkdirSync(dirPath);
-        fs.appendFileSync(`${dirPath}/test.txt`, "tttt");
-        __classPrivateFieldGet(this, _dirsToDelete).push(dirPath);
+        __classPrivateFieldGet(this, _Temping_dirsToDelete, "f").push(dirPath);
         return dirPath;
     }
     // generate random name
@@ -91,7 +89,7 @@ class Temping {
         }
     }
 }
-_dirsToDelete = new WeakMap();
+_Temping_dirsToDelete = new WeakMap();
 exports.default = {
     track: () => new Temping(),
     path: Temping.path,
