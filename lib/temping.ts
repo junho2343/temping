@@ -23,8 +23,6 @@ class Temping implements ITemping {
 
     fs.mkdirSync(dirPath);
 
-    fs.appendFileSync(`${dirPath}/test.txt`, "tttt");
-
     this.#dirsToDelete.push(dirPath);
 
     return dirPath;
